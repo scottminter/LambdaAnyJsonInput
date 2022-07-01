@@ -5,18 +5,26 @@ using Amazon.Lambda.Core;
 
 namespace LambdaAnyJsonInput;
 
+
 public class Function
 {
-    
+
     /// <summary>
     /// A simple function that takes a string and does a ToUpper
     /// </summary>
     /// <param name="input"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    public object FunctionHandler(object input, ILambdaContext context)
+    public object FunctionHandler(ReqBody input, ILambdaContext context)
     {
-        Console.WriteLine(input);
-        return input;
+        if (input.Body != null)
+            return input.Body;
+        else
+            return new object();
     }
+}
+
+public class ReqBody
+{
+    public object? Body { get; set; }
 }
